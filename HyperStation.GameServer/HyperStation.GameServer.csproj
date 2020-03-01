@@ -32,8 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.1.0.145, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.1.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.4.0\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,11 +51,143 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Event.cs" />
+    <Compile Include="Structs\MapID.cs" />
+    <Compile Include="ns4\Activate.cs" />
+    <Compile Include="ByteConverter.cs" />
+    <Compile Include="Enums\InputDir.cs" />
+    <Compile Include="Enums\PawnEmotionEffect.cs" />
+    <Compile Include="Enums\PawnSocialMotion.cs" />
+    <Compile Include="Enums\PawnType.cs" />
+    <Compile Include="Enums\SC_SkillHitResultDefine.cs" />
+    <Compile Include="Enums\SkillUnsuableReason.cs" />
+    <Compile Include="Enums\SkillUseReason.cs" />
+    <Compile Include="Structs\ItemID.cs" />
+    <Compile Include="Mathf.cs" />
+    <Compile Include="Network\Header.cs" />
+    <Compile Include="Network\InPacket.cs" />
+    <Compile Include="Network\IPacket.cs" />
+    <Compile Include="Network\Enums\BattleCommandID.cs" />
+    <Compile Include="Network\Enums\Battle\PacketId.cs" />
+    <Compile Include="Network\Enums\Chat\PacketId.cs" />
+    <Compile Include="Network\Enums\Community\PacketId.cs" />
+    <Compile Include="Network\Enums\Error\PacketId.cs" />
+    <Compile Include="Network\Enums\Error\ErrorList.cs" />
+    <Compile Include="Network\Enums\GameRoom\PacketId.cs" />
+    <Compile Include="Network\Enums\GameServer\AccountExpCode.cs" />
+    <Compile Include="Network\Enums\GameServer\AchieveCompareType.cs" />
+    <Compile Include="Network\Enums\GameServer\AchieveConditionType.cs" />
+    <Compile Include="Network\Enums\GameServer\AchieveEventType.cs" />
+    <Compile Include="Network\Enums\GameServer\AchievePeriodRepeatType.cs" />
+    <Compile Include="Network\Enums\GameServer\AchieveRewardType.cs" />
+    <Compile Include="Network\Enums\GameServer\AchieveType.cs" />
+    <Compile Include="Network\Enums\GameServer\BanPickStep.cs" />
+    <Compile Include="Network\Enums\GameServer\BoosterGetCode.cs" />
+    <Compile Include="Network\Enums\GameServer\BoosterType.cs" />
+    <Compile Include="Network\Enums\GameServer\CashChangeType.cs" />
+    <Compile Include="Network\Enums\GameServer\ChangeBattlePointCode.cs" />
+    <Compile Include="Network\Enums\GameServer\ChangeHyperPointCode.cs" />
+    <Compile Include="Network\Enums\GameServer\ChangeNameType.cs" />
+    <Compile Include="Network\Enums\GameServer\ChangeStateType.cs" />
+    <Compile Include="Network\Enums\GameServer\ChannelMode.cs" />
+    <Compile Include="Network\Enums\GameServer\ChatSubType.cs" />
+    <Compile Include="Network\Enums\GameServer\ChatType.cs" />
+    <Compile Include="Network\Enums\GameServer\ConnectType.cs" />
+    <Compile Include="Network\Enums\GameServer\ContentsRestrictType.cs" />
+    <Compile Include="Network\Enums\GameServer\CubeChangeCode.cs" />
+    <Compile Include="Network\Enums\GameServer\DelEquipItemCode.cs" />
+    <Compile Include="Network\Enums\GameServer\DelHyperEmotionCode.cs" />
+    <Compile Include="Network\Enums\GameServer\DelHyperSkinCode.cs" />
+    <Compile Include="Network\Enums\GameServer\DLCStatus.cs" />
+    <Compile Include="Network\Enums\GameServer\EndQueueCode.cs" />
+    <Compile Include="Network\Enums\GameServer\EndUserState.cs" />
+    <Compile Include="Network\Enums\GameServer\EquipPresetSlotType.cs" />
+    <Compile Include="Network\Enums\GameServer\EscapeType.cs" />
+    <Compile Include="Network\Enums\GameServer\EvaluateType.cs" />
+    <Compile Include="Network\Enums\GameServer\GameEndCode.cs" />
+    <Compile Include="Network\Enums\GameServer\GameFinishCode.cs" />
+    <Compile Include="Network\Enums\GameServer\GameOptionType.cs" />
+    <Compile Include="Network\Enums\GameServer\GameResultCode.cs" />
+    <Compile Include="Network\Enums\GameServer\GetEmblemCode.cs" />
+    <Compile Include="Network\Enums\GameServer\GetEmblemSlotCode.cs" />
+    <Compile Include="Network\Enums\GameServer\GetEquipItemCode.cs" />
+    <Compile Include="Network\Enums\GameServer\GetHyperEmotionCode.cs" />
+    <Compile Include="Network\Enums\GameServer\GetHyperEquipSlotCode.cs" />
+    <Compile Include="Network\Enums\GameServer\GetHyperSkinCode.cs" />
+    <Compile Include="Network\Enums\GameServer\GMContentsRestrictType.cs" />
+    <Compile Include="Network\Enums\GameServer\GMToolEventType.cs" />
+    <Compile Include="Network\Enums\GameServer\GMToolGiveItemType.cs" />
+    <Compile Include="Network\Enums\GameServer\GMToolRestrictType.cs" />
+    <Compile Include="Network\Enums\GameServer\GMToolSetItemType.cs" />
+    <Compile Include="Network\Enums\GameServer\GoodsType.cs" />
+    <Compile Include="Network\Enums\GameServer\HyperBanCode.cs" />
+    <Compile Include="Network\Enums\GameServer\HyperCreateCode.cs" />
+    <Compile Include="Network\Enums\GameServer\HyperDeleteCode.cs" />
+    <Compile Include="Network\Enums\GameServer\HyperExpCode.cs" />
+    <Compile Include="Network\Enums\GameServer\HyperSelectCode.cs" />
+    <Compile Include="Network\Enums\GameServer\ItemChangeType.cs" />
+    <Compile Include="Network\Enums\GameServer\MakeResetDateType.cs" />
+    <Compile Include="Network\Enums\GameServer\MatchLogApplyType.cs" />
+    <Compile Include="Network\Enums\GameServer\MatchType.cs" />
+    <Compile Include="Network\Enums\GameServer\MaterialChangeCode.cs" />
+    <Compile Include="Network\Enums\GameServer\NoMannerPenaltyCode.cs" />
+    <Compile Include="Network\Enums\GameServer\NoMannerWarningType.cs" />
+    <Compile Include="Network\Enums\GameServer\onGameResultParam.cs" />
+    <Compile Include="Network\Enums\GameServer\PacketType.cs" />
+    <Compile Include="Network\Enums\GameServer\PCBangBenefitType.cs" />
+    <Compile Include="Network\Enums\GameServer\PCBangGiftTerm.cs" />
+    <Compile Include="Network\Enums\GameServer\PickMode.cs" />
+    <Compile Include="Network\Enums\GameServer\PlayableFlag.cs" />
+    <Compile Include="Network\Enums\GameServer\PublisherCode.cs" />
+    <Compile Include="Network\Enums\GameServer\PurchaseType.cs" />
+    <Compile Include="Network\Enums\GameServer\PurchaseWay.cs" />
+    <Compile Include="Network\Enums\GameServer\RatingChangeCode.cs" />
+    <Compile Include="Network\Enums\GameServer\ScheduleResetType.cs" />
+    <Compile Include="Network\Enums\GameServer\ServerLogType.cs" />
+    <Compile Include="Network\Enums\GameServer\SetMode.cs" />
+    <Compile Include="Network\Enums\GameServer\StoryAchieveDataType.cs" />
+    <Compile Include="Network\Enums\GameServer\StoryConditionType.cs" />
+    <Compile Include="Network\Enums\GameServer\TeamType.cs" />
+    <Compile Include="Network\Enums\GameServer\UserKickType.cs" />
+    <Compile Include="Network\Enums\GameServer\UserMessageType.cs" />
+    <Compile Include="Network\Enums\GameServer\UserState.cs" />
+    <Compile Include="Network\Enums\Lobby\PacketId.cs" />
+    <Compile Include="Network\Enums\PACKET_VERSION.cs" />
+    <Compile Include="Network\Enums\GameServer\GameLogType.cs" />
+    <Compile Include="Network\Enums\GameServer\Gamemode.cs" />
+    <Compile Include="Network\Enums\Header.cs" />
+    <Compile Include="Network\Enums\Login\PackedId.cs" />
+    <Compile Include="Network\Enums\SendEventID.cs" />
+    <Compile Include="Network\Enums\Session\PacketId.cs" />
+    <Compile Include="Network\OutPacket.cs" />
+    <Compile Include="ns4\BaseStatData.cs" />
+    <Compile Include="ns4\IAddable.cs" />
+    <Compile Include="ns4\IMultipliable.cs" />
+    <Compile Include="ns4\StatCondition.cs" />
+    <Compile Include="ns4\Util.cs" />
+    <Compile Include="ObjectUID.cs" />
+    <Compile Include="Structs\PawnBodyID.cs" />
+    <Compile Include="Structs\PawnClassID.cs" />
+    <Compile Include="PawnStat.cs" />
+    <Compile Include="PawnState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Enums\Team.cs" />
+    <Compile Include="Structs\SkillBuffID.cs" />
+    <Compile Include="Structs\SkillID.cs" />
+    <Compile Include="SkillIDConverter.cs" />
+    <Compile Include="Structs\SkillOptionID.cs" />
+    <Compile Include="SkillResultID.cs" />
+    <Compile Include="Vector2.cs" />
+    <Compile Include="Vector3.cs" />
+    <Compile Include="Vector4.cs" />
+    <Compile Include="XmlAttribute.cs" />
+    <Compile Include="XmlClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
